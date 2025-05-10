@@ -22,6 +22,9 @@ Icon
 *.sublime-project
 *.sublime-workspace
 
+# Obsidian files
+.obsidian/
+
 # Temporary files
 *.tmp
 *.bak
