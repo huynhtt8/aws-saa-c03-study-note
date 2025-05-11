@@ -62,7 +62,7 @@ Amazon Elastic Compute Cloud (EC2) is a core AWS service that provides resizable
   - Capacity Optimized: Pool with the optimal capacity for the number of instances
   - Price-Capacity Optimized (recommended): Selects pools with highest capacity available, then selects the lowest price
 
-## EC2 Instance Types
+## EC2 Instance Types [[EC2 Instance Types and Families]]
 - **General Purpose (T, M)**: Balanced compute, memory, and networking
 - **Compute Optimized (C)**: High-performance processors for compute-bound applications
 - **Memory Optimized (R, X, z)**: Fast performance for workloads processing large datasets in memory
