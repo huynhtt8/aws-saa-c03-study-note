@@ -1,5 +1,3 @@
-# Amazon EC2 Fundamentals
-
 Amazon Elastic Compute Cloud (EC2) is a core AWS service that provides resizable compute capacity in the cloud. It offers various pricing models to suit different workloads and budget requirements.
 
 ## EC2 Pricing Models
@@ -73,6 +71,47 @@ Amazon Elastic Compute Cloud (EC2) is a core AWS service that provides resizable
 - **Cluster**: Packs instances close together for low-latency network performance
 - **Partition**: Spreads instances across logical partitions to reduce correlated failures
 - **Spread**: Strictly places instances on different hardware to reduce simultaneous failures
+
+## EC2 Hibernation
+- Preserves the in-memory state (RAM) of an instance by persisting it to the encrypted EBS root volume
+- Different from stop: hibernation saves RAM contents, stop discards RAM
+- At restart, RAM state is restored from EBS, allowing faster application resumption
+- Root EBS volume **must be encrypted** for hibernation to work
+- The hibernation process:
+  1. The OS writes RAM contents to the EBS root volume
+  2. The instance enters the "stopped" state
+  3. On restart, the EBS root volume is restored to its previous state and RAM contents are reloaded
+
+### Technical Limitations
+- Maximum hibernation duration: 60 days
+- RAM size limitation: Instances with up to 150 GB RAM can hibernate
+- Supported instance families: Not all instance types support hibernation
+- Root volume requirements:
+  - Must be EBS
+  - Must be encrypted
+  - Must have sufficient space to store RAM contents
+- AMI requirements: Must be configured for hibernation (specific OS support)
+
+### Use Cases
+- **Long-running processing**: Save progress for compute-intensive workloads
+- **RAM state preservation**: Maintain application state without keeping instances running
+- **Services with long initialization times**: Avoid lengthy startup procedures
+- **Pre-warming applications**: Load applications into memory before needed
+- **Maintaining session state**: Preserve user sessions for stateful applications
+- **Development and testing**: Quick save and resume of development environments
+
+### Benefits
+- Faster instance startup compared to cold start
+- No need to restart applications or reconnect to databases
+- Reduced billing for stopped instances (only pay for EBS storage)
+- Preservation of RAM-resident data without persistent network connections
+
+### Compared to Other Instance States
+| State | RAM Contents | Billing | Startup Time | Instance IP |
+|-------|--------------|---------|--------------|-------------|
+| Running | Maintained | Full charges | N/A | Unchanged |
+| Stopped | Lost | EBS storage only | Slow | Public IP changes |
+| Hibernated | Saved to EBS | EBS storage only | Faster | Public IP changes |
 
 ## Quiz Questions
 
